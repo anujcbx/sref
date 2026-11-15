@@ -1,1 +1,476 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEOITBOX | Referral Form</title>
+<style>
+:root {
+  --red: #e32636;
+  --red-dark: #b91627;
+  --black: #111111;
+  --surface: #1b1b1b;
+  --muted: #a6a6a6;
+  --border: #343434;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #101010;
+  color: var(--white);
+  font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+  padding: 28px 14px;
+}
+.container {
+  max-width: 760px;
+  margin: auto;
+}
+.header {
+  text-align: center;
+  margin-bottom: 26px;
+}
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.logo span { color: var(--red); }
+.tagline {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+.hero {
+  background: linear-gradient(130deg, #261014, #171717 65%);
+  border: 1px solid #492128;
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(24px, 5vw, 34px);
+  margin: 0 0 10px;
+}
+.hero h1 span { color: var(--red); }
+.hero p {
+  color: #c3c3c3;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 14px;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 18px;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  font-size: 18px;
+}
+.section-number {
+  background: var(--red);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.field { min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+label {
+  display: block;
+  font-size: 13px;
+  color: #dedede;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.required { color: var(--red); }
+input {
+  width: 100%;
+  padding: 14px 13px;
+  background: #111;
+  border: 1px solid #3a3a3a;
+  border-radius: 9px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s;
+}
+input:focus { border-color: var(--red); }
+input::placeholder { color: #777; }
+.referral-card {
+  background: #151515;
+  border: 1px solid #383838;
+  border-radius: 12px;
+  padding: 17px;
+  margin-bottom: 14px;
+}
+.referral-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.referral-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+.remove-btn {
+  background: transparent;
+  color: #ff7777;
+  border: 1px solid #633137;
+  border-radius: 7px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.add-btn {
+  width: 100%;
+  padding: 13px;
+  border: 1px dashed #a83a46;
+  border-radius: 10px;
+  background: #241417;
+  color: #ff6877;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.add-btn:hover { background: #35191e; }
+.submit-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: var(--red);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: .2s;
+}
+.submit-btn:hover { background: var(--red-dark); }
+.submit-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 13px;
+  text-align: center;
+}
+.message {
+  display: none;
+  padding: 18px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+.message.success {
+  background: #14251b;
+  border: 1px solid #285c3b;
+  color: #b9f2c9;
+}
+.message.error {
+  background: #2b1518;
+  border: 1px solid #71313a;
+  color: #ffc3c8;
+}
+.success h2 { margin: 0 0 8px; }
+.footer {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  padding: 15px 0;
+}
+@media(max-width:600px) {
+  body { padding: 17px 11px; }
+  .hero { padding: 21px; }
+  .panel { padding: 17px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="logo">CEOIT<span>BOX</span></div>
+    <div class="tagline">Building Businesses. Creating Connections.</div>
+  </header>
+
+  <section class="hero">
+    <h1>Share Your <span>Referrals.</span><br>Grow Together.</h1>
+    <p>
+      Great business relationships begin with meaningful introductions.
+      Share your referrals with us and help create new opportunities
+      for businesses to grow.
+    </p>
+  </section>
+
+  <div id="successMessage" class="message success">
+    <h2>Thank You for Your Trust &amp; Support!</h2>
+    Your referral submission has been sent. We truly appreciate you
+    connecting us with your network and helping more businesses
+    discover new opportunities. Together, we grow stronger!
+    <p id="submissionId"></p>
+    <button class="add-btn" onclick="resetForm()">Submit Another Response</button>
+  </div>
+
+  <div id="errorMessage" class="message error"></div>
+
+  <form id="referralForm">
+
+    <section class="panel">
+      <h2 class="section-heading">
+        <span class="section-number">1</span>
+        Your Details
+      </h2>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="giverName">Your Name <span class="required">*</span></label>
+          <input id="giverName" name="giverName" required
+                 placeholder="Enter your full name">
+        </div>
+
+        <div class="field">
+          <label for="giverCompany">Your Company <span class="required">*</span></label>
+          <input id="giverCompany" name="giverCompany" required
+                 placeholder="Enter your company name">
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="section-heading">
+        <span class="section-number">2</span>
+        Referral Details
+      </h2>
+
+      <div id="referrals"></div>
+
+      <button type="button" class="add-btn" onclick="addReferral()">
+        + Add Another Referral
+      </button>
+
+      <p class="note">
+        Name and phone number are mandatory. Company and email are optional.
+        You can add multiple referrals and submit them together.
+      </p>
+    </section>
+
+    <button type="submit" class="submit-btn" id="submitBtn">
+      Submit Referrals →
+    </button>
+
+    <p class="note">
+      Your information will be used by CEOITBOX for referral follow-up.
+    </p>
+  </form>
+
+  <footer class="footer">
+    © CEOITBOX · All Rights Reserved
+  </footer>
+
+</div>
+
+<script>
+/*
+  IMPORTANT:
+  This is your existing Apps Script deployment URL.
+  The Apps Script project needs a matching doPost(e) handler.
+*/
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbzNSdgUZBnUGUic5IKm9IyO41zw8KjXeUXQt4u9Bzph_j-kCAUAInP___SbVX2yd0ls/exec";
+
+let referralCount = 0;
+
+function addReferral() {
+  referralCount++;
+
+  const card = document.createElement("div");
+  card.className = "referral-card";
+  card.dataset.referral = referralCount;
+
+  card.innerHTML = `
+    <div class="referral-top">
+      <div class="referral-title">Referral #${referralCount}</div>
+      <button type="button" class="remove-btn"
+        onclick="removeReferral(this)">Remove</button>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label>Referral Name <span class="required">*</span></label>
+        <input class="ref-name" required
+          placeholder="Enter referral name">
+      </div>
+
+      <div class="field">
+        <label>Phone Number <span class="required">*</span></label>
+        <input class="ref-phone" required type="tel"
+          maxlength="20" placeholder="Enter phone number">
+      </div>
+
+      <div class="field">
+        <label>Company Name</label>
+        <input class="ref-company"
+          placeholder="Enter company name (optional)">
+      </div>
+
+      <div class="field">
+        <label>Email Address</label>
+        <input class="ref-email" type="email"
+          placeholder="Enter email (optional)">
+      </div>
+    </div>
+  `;
+
+  document.getElementById("referrals").appendChild(card);
+  updateReferralNumbers();
+}
+
+function removeReferral(button) {
+  const cards = document.querySelectorAll(".referral-card");
+
+  if (cards.length <= 1) {
+    showError("At least one referral entry is required.");
+    return;
+  }
+
+  button.closest(".referral-card").remove();
+  updateReferralNumbers();
+}
+
+function updateReferralNumbers() {
+  document.querySelectorAll(".referral-card").forEach((card, index) => {
+    card.querySelector(".referral-title").textContent =
+      `Referral #${index + 1}`;
+  });
+}
+
+function showError(message) {
+  const box = document.getElementById("errorMessage");
+  box.textContent = message;
+  box.style.display = "block";
+  document.getElementById("successMessage").style.display = "none";
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function validatePhone(phone) {
+  return /^[0-9+\-\s()]{7,20}$/.test(phone);
+}
+
+document.getElementById("referralForm").addEventListener("submit",
+  async function(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    if (!form.reportValidity()) return;
+
+    const giverName =
+      document.getElementById("giverName").value.trim();
+
+    const giverCompany =
+      document.getElementById("giverCompany").value.trim();
+
+    const cards = [...document.querySelectorAll(".referral-card")];
+
+    const referrals = cards.map(card => ({
+      name: card.querySelector(".ref-name").value.trim(),
+      phone: card.querySelector(".ref-phone").value.trim(),
+      company: card.querySelector(".ref-company").value.trim(),
+      email: card.querySelector(".ref-email").value.trim()
+    }));
+
+    for (let i = 0; i < referrals.length; i++) {
+      if (!validatePhone(referrals[i].phone)) {
+        showError(`Please check the phone number in Referral #${i + 1}.`);
+        return;
+      }
+    }
+
+    const payload = {
+      action: "submitReferrals",
+      giverName,
+      giverCompany,
+      referrals
+    };
+
+    const button = document.getElementById("submitBtn");
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
+    document.getElementById("errorMessage").style.display = "none";
+
+    try {
+      /*
+        no-cors allows the browser to send the request cross-origin.
+        The response is opaque, so the browser cannot confirm whether
+        the server successfully saved the rows.
+      */
+      const body = new URLSearchParams();
+      body.append("payload", JSON.stringify(payload));
+
+      await fetch(API_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body
+      });
+
+      document.getElementById("referralForm").style.display = "none";
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("successMessage").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    } catch (error) {
+      showError(
+        "We could not send your submission. Please check your internet connection and try again."
+      );
+    } finally {
+      button.disabled = false;
+      button.textContent = "Submit Referrals →";
+    }
+  }
+);
+
+function resetForm() {
+  document.getElementById("referralForm").reset();
+  document.getElementById("referrals").innerHTML = "";
+  document.getElementById("referralForm").style.display = "block";
+  document.getElementById("successMessage").style.display = "none";
+  document.getElementById("errorMessage").style.display = "none";
+  referralCount = 0;
+  addReferral();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Start with one referral entry
+addReferral();
+</script>
+</body>
+</html>
+
